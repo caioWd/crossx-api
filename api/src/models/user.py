@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from database import db
+from werkzeug.exceptions import InternalServerError
 
 class User(db.Model):
     __tablename__="users"
@@ -40,6 +41,7 @@ class User(db.Model):
         except Exception as e:
             print(f"Error: {e}")
             db.session.rollback()
+            raise InternalServerError("Error saving user")
 
     @classmethod
     def get_all(cls):
@@ -48,6 +50,7 @@ class User(db.Model):
             return [user.to_dict() for user in users]
         except Exception as e:
             print(f"Error: {e}")
+            raise InternalServerError("Error getting users")
 
     @classmethod
     def get_by_id(cls, user_id):
@@ -56,6 +59,7 @@ class User(db.Model):
             return user
         except Exception as e:
             print(f"Error: {e}")
+            raise InternalServerError("Error getting user")
 
     def update_to_db(self):
         try:
@@ -64,6 +68,7 @@ class User(db.Model):
         except Exception as e:
             print(f"Error: {e}")
             db.session.rollback()
+            raise InternalServerError("Error updating user")
 
     def delete_to_db(self):
         try:
@@ -72,6 +77,7 @@ class User(db.Model):
         except Exception as e:
             print(f"Error: {e}")
             db.session.rollback()
+            raise InternalServerError("Error deleting user")
 
 
 

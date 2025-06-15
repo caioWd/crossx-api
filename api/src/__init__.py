@@ -17,7 +17,7 @@ def create_app():
         title='CrossX API',
         version='1.0',
         description='API para gestão da academia',
-        prefix="/crossx/api"
+        prefix="/crossx/api/v1"
     )
 
     api.init_app(app)
